@@ -46,6 +46,26 @@
     "allOwners": "Cualquier responsable",
     "mine": "Solo lo mío"
   },
+  "views": { "tree": "Árbol", "board": "Tablero", "list": "Lista", "agenda": "Agenda" },
+  "board": {
+    "noNextStep": "Sin próximo paso definido",
+    "cannotMove": "Tu rol no puede mover esta oportunidad"
+  },
+  "list": {
+    "opportunity": "Oportunidad",
+    "phase1": "Tramo 1",
+    "prob": "Prob.",
+    "exportCsv": "Exportar CSV"
+  },
+  "agenda": {
+    "deadline": "Deadline",
+    "step": "Paso",
+    "overdue": "Vencido",
+    "thisWeek": "Esta semana",
+    "next3": "Próximas 3 semanas",
+    "later": "Más adelante",
+    "empty": "No hay fechas cargadas con estos filtros."
+  },
   "tree": {
     "legendTitle": "Cada oportunidad madura según su etapa:",
     "colorBy": "Color por",

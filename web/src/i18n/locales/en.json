@@ -46,6 +46,26 @@
     "allOwners": "Any owner",
     "mine": "Only mine"
   },
+  "views": { "tree": "Tree", "board": "Board", "list": "List", "agenda": "Agenda" },
+  "board": {
+    "noNextStep": "No next step defined",
+    "cannotMove": "Your role can't move this opportunity"
+  },
+  "list": {
+    "opportunity": "Opportunity",
+    "phase1": "Phase 1",
+    "prob": "Prob.",
+    "exportCsv": "Export CSV"
+  },
+  "agenda": {
+    "deadline": "Deadline",
+    "step": "Step",
+    "overdue": "Overdue",
+    "thisWeek": "This week",
+    "next3": "Next 3 weeks",
+    "later": "Later",
+    "empty": "No dates match these filters."
+  },
   "tree": {
     "legendTitle": "Each opportunity ripens by its stage:",
     "colorBy": "Color by",

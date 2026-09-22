@@ -10,7 +10,13 @@ import { can, STAGES, ACTIVE_STAGE_KEYS, type Role } from '@pando/shared';
 import { LanguageSwitcher } from '../components/LanguageSwitcher';
 import { OpportunityTree, type ColorBy } from '../tree/OpportunityTree';
 import { OpportunityCard } from '../opportunity/OpportunityCard';
+import { BoardView } from '../views/BoardView';
+import { ListView } from '../views/ListView';
+import { AgendaView } from '../views/AgendaView';
 import type { ItemWithId } from '../tree/model';
+
+type ViewKey = 'tree' | 'board' | 'list' | 'agenda';
+const VIEWS: ViewKey[] = ['tree', 'board', 'list', 'agenda'];
 
 interface Props {
   items: ItemWithId[];
@@ -19,6 +25,7 @@ interface Props {
   role: Role;
   currentUid: string | null;
   displayName: string;
+  initialView?: ViewKey;
   onSignOut?: () => void;
   onManageUsers?: () => void;
 }
@@ -34,6 +41,7 @@ export function AppShell({
   role,
   currentUid,
   displayName,
+  initialView = 'tree',
   onSignOut,
   onManageUsers,
 }: Props) {
@@ -41,6 +49,7 @@ export function AppShell({
   const showMoney = can(role, 'viewAmounts');
   const isAdmin = can(role, 'manageUsers');
 
+  const [view, setView] = useState<ViewKey>(initialView);
   const [q, setQ] = useState('');
   const [trunk, setTrunk] = useState('');
   const [sector, setSector] = useState('');
@@ -171,24 +180,40 @@ export function AppShell({
         </label>
       </div>
 
+      <nav className="tabs" role="tablist">
+        {VIEWS.map((v) => (
+          <button
+            key={v}
+            role="tab"
+            aria-selected={view === v}
+            className={'tab' + (view === v ? ' tab--on' : '')}
+            onClick={() => setView(v)}
+          >
+            {t(`views.${v}`)}
+          </button>
+        ))}
+      </nav>
+
       <main className="content">
-        <div className="legend">
-          <span className="muted">{t('tree.legendTitle')}</span>
-          {ACTIVE_STAGE_KEYS.map((s) => (
-            <span key={s} className="legend__item">
-              <i style={{ background: STAGES[s].colorLight }} />
-              {t(`stage.${s}`)}
-            </span>
-          ))}
-          <span className="legend__grow" />
-          <label className="legend__colorby">
-            {t('tree.colorBy')}
-            <select value={colorBy} onChange={(e) => setColorBy(e.target.value as ColorBy)}>
-              <option value="stage">{t('tree.byStage')}</option>
-              <option value="urg">{t('tree.byUrgency')}</option>
-            </select>
-          </label>
-        </div>
+        {view === 'tree' && (
+          <div className="legend">
+            <span className="muted">{t('tree.legendTitle')}</span>
+            {ACTIVE_STAGE_KEYS.map((s) => (
+              <span key={s} className="legend__item">
+                <i style={{ background: STAGES[s].colorLight }} />
+                {t(`stage.${s}`)}
+              </span>
+            ))}
+            <span className="legend__grow" />
+            <label className="legend__colorby">
+              {t('tree.colorBy')}
+              <select value={colorBy} onChange={(e) => setColorBy(e.target.value as ColorBy)}>
+                <option value="stage">{t('tree.byStage')}</option>
+                <option value="urg">{t('tree.byUrgency')}</option>
+              </select>
+            </label>
+          </div>
+        )}
 
         {error ? (
           <p className="content__error">{error}</p>
@@ -204,18 +229,33 @@ export function AppShell({
             <p className="content__count muted">
               {t('tree.activeCount', { count: activeCount, lines: trunks.length })}
             </p>
-            <div className="treeScroll">
-              <OpportunityTree
+            {view === 'tree' && (
+              <div className="treeScroll">
+                <OpportunityTree
+                  items={visible}
+                  colorBy={colorBy}
+                  collapsed={effectiveCollapsed}
+                  onToggle={toggle}
+                  onSelect={setSelectedId}
+                  selectedId={selectedId}
+                  showMoney={showMoney}
+                  highlightId={highlightId}
+                />
+              </div>
+            )}
+            {view === 'board' && (
+              <BoardView
                 items={visible}
-                colorBy={colorBy}
-                collapsed={effectiveCollapsed}
-                onToggle={toggle}
-                onSelect={setSelectedId}
-                selectedId={selectedId}
+                role={role}
+                currentUid={currentUid}
                 showMoney={showMoney}
-                highlightId={highlightId}
+                onSelect={setSelectedId}
               />
-            </div>
+            )}
+            {view === 'list' && (
+              <ListView items={visible} showMoney={showMoney} onSelect={setSelectedId} />
+            )}
+            {view === 'agenda' && <AgendaView items={visible} onSelect={setSelectedId} />}
           </>
         )}
       </main>

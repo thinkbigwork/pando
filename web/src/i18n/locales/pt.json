@@ -46,6 +46,26 @@
     "allOwners": "Qualquer responsável",
     "mine": "Só o meu"
   },
+  "views": { "tree": "Árvore", "board": "Quadro", "list": "Lista", "agenda": "Agenda" },
+  "board": {
+    "noNextStep": "Sem próximo passo definido",
+    "cannotMove": "Sua função não pode mover esta oportunidade"
+  },
+  "list": {
+    "opportunity": "Oportunidade",
+    "phase1": "Etapa 1",
+    "prob": "Prob.",
+    "exportCsv": "Exportar CSV"
+  },
+  "agenda": {
+    "deadline": "Prazo",
+    "step": "Passo",
+    "overdue": "Vencido",
+    "thisWeek": "Esta semana",
+    "next3": "Próximas 3 semanas",
+    "later": "Mais adiante",
+    "empty": "Não há datas com estes filtros."
+  },
   "tree": {
     "legendTitle": "Cada oportunidade amadurece conforme sua etapa:",
     "colorBy": "Cor por",
