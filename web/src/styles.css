@@ -279,6 +279,223 @@ select option {
   border: 0;
 }
 
+/* -------------------------------------------------------------------------
+ * App shell (con sesión): barra Wizor navy + área de contenido clara/oscura.
+ * ---------------------------------------------------------------------- */
+.shell {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.appbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  padding-top: max(10px, env(safe-area-inset-top));
+  background: var(--wz-navy);
+  color: var(--wz-white);
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+
+.appbar__brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.appbar__brand img {
+  height: 24px;
+  width: auto;
+}
+
+.appbar__product {
+  font-size: 0.72rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--wz-mint);
+  font-weight: 700;
+}
+
+.appbar__spacer {
+  flex: 1;
+}
+
+.appbar__btn {
+  min-height: 40px;
+  border-color: rgba(255, 255, 255, 0.28);
+  color: rgba(255, 255, 255, 0.92);
+  background: transparent;
+}
+
+.role-chip {
+  padding: 4px 12px;
+  border-radius: var(--radius-pill);
+  background: rgba(135, 202, 156, 0.16);
+  color: var(--wz-mint);
+  font-weight: 700;
+  font-size: 0.82rem;
+  white-space: nowrap;
+}
+
+.appbar select {
+  color: var(--wz-white);
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.filters input[type='search'] {
+  flex: 1 1 220px;
+}
+
+.filters input,
+.filters select {
+  min-height: var(--tap-min);
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  color: var(--text);
+  padding: 0 12px;
+  font-family: inherit;
+  font-size: 0.95rem;
+}
+
+.filters__mine {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.content {
+  flex: 1;
+  padding: 16px;
+}
+
+.content__error {
+  color: var(--danger);
+}
+
+.content__empty {
+  text-align: center;
+  padding: 48px 16px;
+}
+
+.content__count {
+  margin: 4px 2px 12px;
+  font-size: 0.9rem;
+}
+
+/* Leyenda de etapas */
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+  font-size: 0.85rem;
+}
+
+.legend__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-muted);
+}
+
+.legend__item i {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  display: inline-block;
+}
+
+.legend__grow {
+  flex: 1;
+}
+
+.legend__colorby {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-muted);
+}
+
+.legend__colorby select {
+  min-height: 36px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  padding: 0 8px;
+}
+
+/* Árbol */
+.treeScroll {
+  overflow-x: auto;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 8px;
+}
+
+.treeBox svg {
+  display: block;
+  max-width: none;
+}
+
+.treeBox text {
+  fill: var(--text);
+}
+
+.treeBox .sub {
+  fill: var(--text-muted);
+  font-size: 11.5px;
+}
+
+.treeBox .leaf.dim {
+  opacity: 0.32;
+}
+
+.treeBox .node:focus-visible {
+  outline: none;
+}
+
+.treeBox .node.leaf:focus-visible circle {
+  stroke: var(--focus);
+  stroke-width: 3;
+}
+
+.shell__foot {
+  padding: 12px 16px;
+  padding-bottom: max(12px, env(safe-area-inset-bottom));
+  border-top: 1px solid var(--border);
+  font-size: 0.82rem;
+}
+
+@media (max-width: 640px) {
+  .appbar__product {
+    display: none;
+  }
+  .role-chip {
+    display: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   * {
     transition: none !important;
