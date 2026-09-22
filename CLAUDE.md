@@ -57,17 +57,31 @@ firestore.rules, storage.rules, firebase.json, .firebaserc
 - Si una API externa pudo haber cambiado (Meet, WhatsApp, Slack, Jira), verificá la documentación oficial antes de implementar.
 - Al cerrar un sprint, actualizá la sección "Estado actual" de este archivo.
 
-## Comandos (a completar en el Sprint 0)
+## Comandos
 
-- `npm run dev`: web en modo desarrollo contra emuladores.
-- `npm run emulators`: Firebase Emulator Suite.
-- `npm test`: todos los tests.
-- `npm run seed:dev`: carga `seed/items.json` en el emulador o en `pando-dev`.
+- `npm run dev`: web en modo desarrollo (contra emuladores si `VITE_USE_EMULATORS=1`).
+- `npm run emulators`: Firebase Emulator Suite (Auth, Firestore, Functions, Storage, Hosting).
+- `npm run lint` / `npm run format:check` / `npm run typecheck`: calidad de código.
+- `npm test`: tests unitarios (Vitest) de todos los paquetes.
+- `npm run test:rules`: tests de reglas de Firestore contra el emulador (requiere Java).
+- `npm run build`: compila todos los paquetes.
+- `npm run seed:dev`: carga de datos semilla (stub en Sprint 0; migración real en Sprint 1).
 
 ## Estado actual
 
 - Se agregó la función "Mi red" (red de contactos), en el Sprint 5. La privacidad de las redes es un requisito central: los contactos de una persona nunca son legibles por otra.
 
-- Sprint 0: pendiente.
+- **Sprint 0: implementado (cimientos), pendiente de verificación en la nube.** Monorepo
+  `web`/`functions`/`shared`/`scripts` con TS estricto, ESLint y Prettier. Login con Google y
+  gate de acceso (pendiente / sin acceso / listo). `/shared` con etapas, roles, matriz de
+  permisos y tipos, con tests. i18n es/en/pt sin texto de UI en el código. Reglas de Firestore
+  y Storage + primer test de reglas. `bootstrapAdmin` y trigger `setRoleClaim`. CI en GitHub
+  Actions. Región elegida: `southamerica-east1`. Dominio de Workspace: `wizor.io`. CEO
+  (bootstrap): `desk@wizor.io`. Repo: `github.com/thinkbigwork/pando`.
+  - **Verificado localmente:** build, typecheck, lint, formato y tests unitarios en verde.
+  - **Falta (pasos del usuario):** crear el proyecto `pando-dev` en Firebase y completar
+    `web/.env.local`; instalar Java para correr el emulador y `npm run test:rules` en local
+    (en CI corren solos); `git push` inicial al repo; probar el login real y ver la pantalla
+    vacía con el rol (criterio de aceptación del Sprint 0).
 - El prototipo ya fue validado conceptualmente con el CEO.
 - Los datos semilla vienen de la planilla "Seguimiento - Prospección - Pipeline". Algunas agrupaciones, sectores, países y dependencias fueron inferidos y deben revisarse con el equipo.
