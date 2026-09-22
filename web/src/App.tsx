@@ -12,15 +12,19 @@ import { SAMPLE_SEEDS } from './seeds/sampleSeeds';
 import type { Role } from '@pando/shared';
 import type { ItemWithId } from './tree/model';
 
+type HomeView = 'tree' | 'board' | 'list' | 'agenda' | 'semillero' | 'captura';
+
 /** Pantalla de inicio por rol (ver "Usabilidad" en docs/01-producto.md). */
-function homeFor(role: Role): { view: 'tree' | 'board' | 'list' | 'agenda'; mine: boolean } {
+function homeFor(role: Role): { view: HomeView; mine: boolean } {
   switch (role) {
     case 'vendedor':
       return { view: 'list', mine: true }; // "Mis oportunidades" por deadline
     case 'colaborador':
       return { view: 'agenda', mine: true }; // "Mis pasos"
+    case 'advisor':
+      return { view: 'captura', mine: false }; // "Nuevo contacto"
     default:
-      return { view: 'tree', mine: false }; // CEO/cofounder/chief/pm/advisor
+      return { view: 'tree', mine: false }; // CEO/cofounder/chief/pm
   }
 }
 
