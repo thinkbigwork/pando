@@ -1,0 +1,37 @@
+rules_version = '2';
+// Storage de Pando. Ver docs/02-arquitectura.md.
+// - seeds/{uid}/...: audios y fotos de captura. Solo el autor y los roles de
+//   triage leen. Límites: audio 10 MB, imagen 8 MB.
+// - Los archivos importados de red de contactos (CSV, VCF) se procesan y se
+//   borran en menos de 24 h (los borra el backend).
+service firebase.storage {
+  match /b/{bucket}/o {
+    function signedIn() { return request.auth != null; }
+    function role() { return signedIn() ? request.auth.token.role : null; }
+    function isTriage() {
+      return role() in ['ceo', 'cofounder', 'chief', 'pm', 'vendedor'];
+    }
+
+    match /seeds/{uid}/{allPaths=**} {
+      allow read: if signedIn() && (request.auth.uid == uid || isTriage());
+      allow create: if signedIn()
+                    && request.auth.uid == uid
+                    && (
+                      (request.resource.contentType.matches('audio/.*') && request.resource.size < 10 * 1024 * 1024)
+                      || (request.resource.contentType.matches('image/.*') && request.resource.size < 8 * 1024 * 1024)
+                    );
+      allow update, delete: if false; // solo backend (Admin SDK)
+    }
+
+    // Importaciones de red de contactos: cada quien sube la suya; las lee el backend.
+    match /network-imports/{uid}/{allPaths=**} {
+      allow create: if signedIn() && request.auth.uid == uid
+                    && request.resource.size < 20 * 1024 * 1024;
+      allow read, update, delete: if false; // solo backend
+    }
+
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

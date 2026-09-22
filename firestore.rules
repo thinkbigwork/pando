@@ -1,0 +1,127 @@
+rules_version = '2';
+// BORRADOR inicial para Pando. Claude Code debe completarlo y cubrirlo con tests
+// (@firebase/rules-unit-testing) para cada fila de la matriz de docs/01-producto.md.
+service cloud.firestore {
+  match /databases/{db}/documents {
+
+    function signedIn() { return request.auth != null; }
+    function role() { return signedIn() ? request.auth.token.role : null; }
+    function isAny(roles) { return role() in roles; }
+    function admins() { return ['ceo', 'cofounder']; }
+    function editorsAll() { return ['ceo', 'cofounder', 'chief', 'pm']; }
+    function internal() { return ['ceo', 'cofounder', 'chief', 'pm', 'vendedor', 'colaborador', 'advisor']; }
+    function isOwner(data) { return request.auth.uid in data.ownerUids; }
+    function onlyChanged(keys) {
+      return request.resource.data.diff(resource.data).affectedKeys().hasOnly(keys);
+    }
+    function stamped() { return request.resource.data.updatedBy == request.auth.uid; }
+
+    // Usuarios: cada uno lee su perfil; admins gestionan. El rol se aplica vía custom claims desde una function.
+    match /users/{uid} {
+      allow read: if signedIn() && (request.auth.uid == uid || isAny(admins()));
+      allow update: if signedIn() && request.auth.uid == uid
+                    && onlyChanged(['activeEventId', 'whatsappPhone', 'displayName']);
+      allow create, delete: if isAny(admins());
+      allow update: if isAny(admins());
+    }
+
+    // Red de contactos: privada del dueño. Nadie más, tampoco admins.
+    match /users/{uid}/contacts/{cid} {
+      allow read, write: if signedIn() && request.auth.uid == uid && isAny(internal());
+    }
+    match /users/{uid}/networkSettings/{docId} {
+      allow read, write: if signedIn() && request.auth.uid == uid;
+    }
+    match /users/{uid}/privateMatches/{itemId} {
+      allow read: if signedIn() && request.auth.uid == uid;
+      allow write: if false;
+    }
+    match /connections/{id} {
+      allow read: if isAny(internal());
+      allow write: if false; // solo backend
+    }
+    match /orgs/{orgId} {
+      allow read: if isAny(internal());
+      allow write: if isAny(editorsAll());
+    }
+    match /matches/{itemId} {
+      allow read: if isAny(internal());
+      allow write: if false;
+    }
+    match /introRequests/{id} {
+      allow create: if isAny(internal()) && request.resource.data.requesterUid == request.auth.uid
+                    && request.resource.data.status == 'pendiente';
+      allow read: if signedIn() && (resource.data.requesterUid == request.auth.uid || resource.data.ownerUid == request.auth.uid);
+      allow update: if signedIn() && resource.data.ownerUid == request.auth.uid
+                    && onlyChanged(['status', 'answeredAt', 'answer']);
+    }
+
+    // Hojas
+    match /items/{itemId} {
+      allow read: if isAny(internal());
+      allow create: if isAny(['ceo', 'cofounder', 'chief', 'pm', 'vendedor'])
+                    && request.resource.data.createdBy == request.auth.uid;
+      allow update: if stamped() && (
+                        isAny(editorsAll())
+                     || (role() == 'vendedor' && isOwner(resource.data))
+                     || (role() == 'colaborador' && onlyChanged(['steps', 'updatedAt', 'updatedBy']))
+                    );
+      allow delete: if isAny(admins());
+
+      match /comments/{cid} {
+        allow read: if isAny(internal());
+        allow create: if isAny(internal()) && request.resource.data.by == request.auth.uid;
+        allow update, delete: if isAny(admins());
+      }
+      match /meetings/{mid} {
+        allow read: if isAny(['ceo', 'cofounder', 'chief', 'pm', 'vendedor', 'colaborador', 'advisor']);
+        allow write: if isAny(editorsAll())
+                     || (role() == 'vendedor' && isOwner(get(/databases/$(db)/documents/items/$(itemId)).data));
+      }
+      match /activity/{aid} {
+        allow read: if isAny(internal());
+        allow write: if false; // solo functions (Admin SDK)
+      }
+    }
+
+    // Semillas: todos los internos capturan; el autor y los roles de triage leen.
+    match /seeds/{seedId} {
+      allow create: if isAny(internal()) && request.resource.data.capturedBy == request.auth.uid
+                    && request.resource.data.status == 'pendiente';
+      allow read: if isAny(['ceo', 'cofounder', 'chief', 'pm', 'vendedor'])
+                  || (signedIn() && resource.data.capturedBy == request.auth.uid);
+      allow update: if isAny(['ceo', 'cofounder', 'chief', 'pm', 'vendedor']);
+      allow delete: if isAny(admins());
+    }
+
+    match /events/{eventId} {
+      allow read: if isAny(internal());
+      allow create: if isAny(internal());
+      allow update, delete: if isAny(editorsAll());
+    }
+
+    match /suggestions/{sid} {
+      allow read: if isAny(['ceo', 'cofounder', 'chief', 'pm', 'vendedor']);
+      allow update: if isAny(['ceo', 'cofounder', 'chief', 'pm', 'vendedor'])
+                    && onlyChanged(['status', 'decidedBy', 'decidedAt']);
+      allow create, delete: if false; // solo el agente (Admin SDK)
+    }
+
+    match /config/{docId} {
+      allow read: if isAny(internal());
+      allow write: if isAny(admins());
+    }
+
+    // Vista de visitantes: única lectura permitida para 'visitante'.
+    match /public/summary {
+      allow read: if signedIn() && role() != null && role() != 'pendiente';
+      allow write: if false;
+    }
+
+    match /auditLog/{id} {
+      allow read: if isAny(admins());
+      allow write: if false;
+    }
+    match /integrationEvents/{id} { allow read, write: if false; }
+  }
+}

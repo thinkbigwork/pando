@@ -1,0 +1,17 @@
+{
+  "name": "@pando/scripts",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "seed:dev": "tsx src/seed.ts"
+  },
+  "dependencies": {
+    "@pando/shared": "*",
+    "firebase-admin": "^13.0.2"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.2"
+  }
+}

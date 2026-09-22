@@ -1,0 +1,7 @@
+{
+  "projects": {
+    "default": "pando-dev",
+    "dev": "pando-dev",
+    "prod": "pando-prod"
+  }
+}

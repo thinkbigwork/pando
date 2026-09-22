@@ -1,0 +1,17 @@
+node_modules
+dist
+build
+lib
+coverage
+*.tsbuildinfo
+reference/prototipo-pando.html
+seed/planilla-original.xlsx
+
+# Documentos de especificación provistos por el equipo: se mantienen tal cual,
+# fuera del control de estilo de Prettier.
+docs/
+LEEME_PRIMERO.md
+CLAUDE.md
+
+# Datos semilla: JSON grande, no se reformatea.
+seed/items.json

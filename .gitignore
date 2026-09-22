@@ -1,0 +1,43 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Build outputs
+dist/
+build/
+lib/
+*.tsbuildinfo
+
+# Firebase
+.firebase/
+firebase-debug.log
+firestore-debug.log
+ui-debug.log
+database-debug.log
+pubsub-debug.log
+*-debug.log
+firebase-export-*/
+.runtimeconfig.json
+
+# Local env & secrets (NUNCA commitear claves)
+.env
+.env.*
+!.env.example
+*.local
+serviceAccount*.json
+gcloud-key*.json
+
+# Editor / OS
+.DS_Store
+.idea/
+.vscode/*
+!.vscode/extensions.json
+*.swp
+
+# Test / coverage
+coverage/
+.vitest/
+
+# Seed backup binario (la fuente viva es items.json)
+# seed/planilla-original.xlsx se mantiene como respaldo, no se ignora

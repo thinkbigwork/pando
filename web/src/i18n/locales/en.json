@@ -1,0 +1,53 @@
+{
+  "app": {
+    "name": "Pando",
+    "tagline": "Wizor's commercial tracker"
+  },
+  "auth": {
+    "signInWithGoogle": "Sign in with Google",
+    "signOut": "Sign out",
+    "loading": "Loading…",
+    "welcome": "Welcome to Pando",
+    "signInHint": "Use your {{domain}} account"
+  },
+  "access": {
+    "pendingTitle": "Your access is pending",
+    "pendingBody": "An administrator needs to assign you a role. We'll let you know when you can get in.",
+    "noAccessTitle": "You don't have access",
+    "noAccessBody": "This account isn't invited to Pando. Reach out if you think this is a mistake."
+  },
+  "home": {
+    "signedInAs": "Signed in as",
+    "yourRole": "Your role",
+    "emptyTitle": "Nothing to show yet",
+    "emptyBody": "We're building Pando. Your opportunity tree will show up here soon."
+  },
+  "role": {
+    "ceo": "CEO",
+    "cofounder": "Cofounder",
+    "chief": "Chief",
+    "pm": "PM",
+    "vendedor": "Salesperson",
+    "colaborador": "Collaborator",
+    "advisor": "Advisor",
+    "visitante": "Visitor",
+    "pendiente": "Pending"
+  },
+  "stage": {
+    "exploracion": "Exploration",
+    "presentacion": "Presentation",
+    "propuesta": "Proposal",
+    "poc": "PoC or pilot",
+    "negociacion": "Negotiation and funding",
+    "cierre": "Signed contract",
+    "despliegue": "Deployment",
+    "pausado": "Paused",
+    "perdido": "Lost"
+  },
+  "language": {
+    "label": "Language",
+    "es": "Spanish",
+    "en": "English",
+    "pt": "Portuguese"
+  }
+}

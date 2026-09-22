@@ -1,0 +1,53 @@
+{
+  "app": {
+    "name": "Pando",
+    "tagline": "Acompanhamento comercial da Wizor"
+  },
+  "auth": {
+    "signInWithGoogle": "Entrar com o Google",
+    "signOut": "Sair",
+    "loading": "Carregando…",
+    "welcome": "Bem-vinda ao Pando",
+    "signInHint": "Use sua conta {{domain}}"
+  },
+  "access": {
+    "pendingTitle": "Seu acesso está pendente",
+    "pendingBody": "Um administrador precisa atribuir uma função a você. Avisaremos quando puder entrar.",
+    "noAccessTitle": "Você não tem acesso",
+    "noAccessBody": "Esta conta não foi convidada para o Pando. Fale conosco se achar que é um engano."
+  },
+  "home": {
+    "signedInAs": "Sessão iniciada como",
+    "yourRole": "Sua função",
+    "emptyTitle": "Ainda não há nada para mostrar",
+    "emptyBody": "Estamos construindo o Pando. Em breve você verá aqui sua árvore de oportunidades."
+  },
+  "role": {
+    "ceo": "CEO",
+    "cofounder": "Cofundador(a)",
+    "chief": "Chief",
+    "pm": "PM",
+    "vendedor": "Vendedor(a)",
+    "colaborador": "Colaborador(a)",
+    "advisor": "Advisor",
+    "visitante": "Visitante",
+    "pendiente": "Pendente"
+  },
+  "stage": {
+    "exploracion": "Exploração",
+    "presentacion": "Apresentação",
+    "propuesta": "Proposta",
+    "poc": "PoC ou piloto",
+    "negociacion": "Negociação e financiamento",
+    "cierre": "Contrato assinado",
+    "despliegue": "Implantação",
+    "pausado": "Pausado",
+    "perdido": "Perdido"
+  },
+  "language": {
+    "label": "Idioma",
+    "es": "Espanhol",
+    "en": "Inglês",
+    "pt": "Português"
+  }
+}
