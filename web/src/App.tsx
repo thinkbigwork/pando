@@ -10,8 +10,8 @@ function Brand() {
   const { t } = useTranslation();
   return (
     <div className="brand">
-      <img src="/icon.svg" alt="" aria-hidden="true" />
-      <h1>{t('app.name')}</h1>
+      <img className="brand__logo" src="/brand/wizor-logo-white.png" alt="Wizor" />
+      <span className="brand__product">{t('app.name')}</span>
       <p className="muted">{t('app.tagline')}</p>
     </div>
   );
@@ -33,8 +33,8 @@ function TopBar() {
 function SignIn() {
   const { t } = useTranslation();
   return (
-    <div className="screen">
-      <div className="card">
+    <div className="brand-screen">
+      <div className="glass-card">
         <Brand />
         <h2>{t('auth.welcome')}</h2>
         <p className="muted">{t('auth.signInHint', { domain: WORKSPACE_DOMAIN })}</p>
@@ -49,7 +49,7 @@ function SignIn() {
 function Loading() {
   const { t } = useTranslation();
   return (
-    <div className="screen">
+    <div className="brand-screen">
       <p className="muted">{t('auth.loading')}</p>
     </div>
   );
@@ -59,8 +59,8 @@ function AccessPending() {
   const { t } = useTranslation();
   const { firebaseUser } = useAuth();
   return (
-    <div className="screen">
-      <div className="card">
+    <div className="brand-screen">
+      <div className="glass-card">
         <Brand />
         <h2>{t('access.pendingTitle')}</h2>
         <p className="muted">{t('access.pendingBody')}</p>
@@ -74,8 +74,8 @@ function NoAccess() {
   const { t } = useTranslation();
   const { firebaseUser } = useAuth();
   return (
-    <div className="screen">
-      <div className="card">
+    <div className="brand-screen">
+      <div className="glass-card">
         <Brand />
         <h2>{t('access.noAccessTitle')}</h2>
         <p className="muted">{t('access.noAccessBody')}</p>
@@ -93,8 +93,8 @@ function Home() {
   const { t } = useTranslation();
   const { firebaseUser, role } = useAuth();
   return (
-    <div className="screen">
-      <div className="card">
+    <div className="brand-screen">
+      <div className="glass-card">
         <Brand />
         <p className="muted">{t('home.signedInAs')}</p>
         <p>
@@ -102,7 +102,7 @@ function Home() {
         </p>
         <p className="muted">{t('home.yourRole')}</p>
         {role && <p className="role-badge">{t(`role.${role}`)}</p>}
-        <hr style={{ border: 'none', borderTop: '1px solid var(--border)', margin: '20px 0' }} />
+        <hr className="divider" />
         <h2>{t('home.emptyTitle')}</h2>
         <p className="muted">{t('home.emptyBody')}</p>
       </div>

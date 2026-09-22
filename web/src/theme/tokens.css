@@ -1,0 +1,60 @@
+/**
+ * Design tokens de Pando, derivados de la identidad visual de Wizor
+ * (https://sales.wizor.io/devices/): navy profundo, verde menta de acento,
+ * tipografía Montserrat, botones píldora y tarjetas "glass".
+ *
+ * Convención de color (regla de usabilidad "cada color, un solo significado"):
+ * - Navy y menta son colores de MARCA y de acciones (chrome, botones, foco).
+ * - La escala de verdes graduados + dorado (definida en @pando/shared/stages)
+ *   es EXCLUSIVA de las etapas del pipeline y solo aparece en hojas, siempre
+ *   acompañada de texto o ícono.
+ */
+
+:root {
+  /* Marca Wizor */
+  --wz-navy: #001c38;
+  --wz-navy-800: #06213e;
+  --wz-navy-700: #0d2c4c;
+  --wz-navy-600: #16405f;
+  --wz-mint: #87ca9c;
+  --wz-mint-600: #6fb98a;
+  --wz-white: #ffffff;
+
+  --font-sans: 'Montserrat', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+
+  /* Radios y espaciado */
+  --radius: 16px;
+  --radius-lg: 24px;
+  --radius-pill: 999px;
+  --gap: 16px;
+  --tap-min: 44px;
+
+  /* Superficie de contenido — tema claro por defecto */
+  --bg: #eef1f5;
+  --surface: #ffffff;
+  --surface-2: #f6f8fa;
+  --text: #0e2036;
+  --text-muted: #5b6b7d;
+  --border: #dbe2ea;
+  --accent: var(--wz-navy);
+  --accent-contrast: #ffffff;
+  --focus: var(--wz-mint-600);
+  --danger: #c0453f;
+
+  color-scheme: light dark;
+}
+
+/* Superficie de contenido — tema oscuro (según el sistema) */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #05131f;
+    --surface: #0d2136;
+    --surface-2: #0a1b2c;
+    --text: #e9eef4;
+    --text-muted: #9fb1c4;
+    --border: #1c3350;
+    --accent: var(--wz-mint);
+    --accent-contrast: var(--wz-navy);
+    --focus: var(--wz-mint);
+  }
+}
