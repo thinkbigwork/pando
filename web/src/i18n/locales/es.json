@@ -46,7 +46,34 @@
     "allOwners": "Cualquier responsable",
     "mine": "Solo lo mío"
   },
-  "views": { "tree": "Árbol", "board": "Tablero", "list": "Lista", "agenda": "Agenda" },
+  "views": {
+    "tree": "Árbol",
+    "board": "Tablero",
+    "list": "Lista",
+    "agenda": "Agenda",
+    "semillero": "Semillero"
+  },
+  "channel": {
+    "voz": "Voz",
+    "qr": "QR",
+    "foto": "Foto",
+    "whatsapp": "WhatsApp",
+    "slack": "Slack",
+    "manual": "Manual"
+  },
+  "seedbed": {
+    "empty": "No hay contactos por revisar.",
+    "noName": "Sin nombre",
+    "suggested": "Sugerencia",
+    "possibleDup": "Posible duplicado de: {{names}}",
+    "plantNew": "Plantar (nueva)",
+    "plantInto": "Sumar a una oportunidad",
+    "add": "Sumar",
+    "mergeWith": "Fusionar con",
+    "merge": "Fusionar",
+    "discard": "Descartar",
+    "sampleNote": "Modo muestra: las acciones no escriben."
+  },
   "board": {
     "noNextStep": "Sin próximo paso definido",
     "cannotMove": "Tu rol no puede mover esta oportunidad"

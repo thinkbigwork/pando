@@ -554,6 +554,93 @@ select option {
   margin-right: 6px;
 }
 
+/* Semillero */
+.seedbed {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.seed {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px;
+}
+
+.seed__head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.seed__head strong {
+  font-size: 1rem;
+}
+
+.seed__fields {
+  font-size: 0.88rem;
+  margin-top: 4px;
+}
+
+.seed__interest {
+  margin-top: 6px;
+}
+
+.seed__suggest {
+  font-size: 0.82rem;
+  margin-top: 4px;
+}
+
+.seed__dup {
+  margin-top: 8px;
+  color: var(--warn);
+  font-size: 0.85rem;
+}
+
+.seed__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+  align-items: center;
+}
+
+.seed__actions button {
+  min-height: 40px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  padding: 0 14px;
+  font-weight: 600;
+}
+
+.seed__actions button.primary {
+  background: var(--wz-mint);
+  color: var(--wz-navy);
+  border-color: transparent;
+}
+
+.seed__actions button.danger {
+  color: var(--danger);
+}
+
+.seed__inline {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.seed__inline select {
+  min-height: 40px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  color: var(--text);
+  padding: 0 10px;
+}
+
 /* Resumen del visitante */
 .stats {
   display: grid;

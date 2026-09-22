@@ -13,9 +13,11 @@ import { OpportunityCard } from '../opportunity/OpportunityCard';
 import { BoardView } from '../views/BoardView';
 import { ListView } from '../views/ListView';
 import { AgendaView } from '../views/AgendaView';
+import { SemilleroPanel } from '../seeds/SemilleroPanel';
+import type { SeedWithId } from '../data/useSeeds';
 import type { ItemWithId } from '../tree/model';
 
-type ViewKey = 'tree' | 'board' | 'list' | 'agenda';
+type ViewKey = 'tree' | 'board' | 'list' | 'agenda' | 'semillero';
 const VIEWS: ViewKey[] = ['tree', 'board', 'list', 'agenda'];
 
 interface Props {
@@ -27,6 +29,7 @@ interface Props {
   displayName: string;
   initialView?: ViewKey;
   initialMine?: boolean;
+  sampleSeeds?: SeedWithId[];
   onSignOut?: () => void;
   onManageUsers?: () => void;
 }
@@ -50,12 +53,15 @@ export function AppShell({
   displayName,
   initialView = 'tree',
   initialMine = false,
+  sampleSeeds,
   onSignOut,
   onManageUsers,
 }: Props) {
   const { t } = useTranslation();
   const showMoney = can(role, 'viewAmounts');
   const isAdmin = can(role, 'manageUsers');
+  const isTriage = can(role, 'triageSeeds');
+  const tabs: ViewKey[] = isTriage ? [...VIEWS, 'semillero'] : VIEWS;
 
   const [view, setView] = useState<ViewKey>(initialView);
   const [q, setQ] = useState('');
@@ -189,7 +195,7 @@ export function AppShell({
       </div>
 
       <nav className="tabs" role="tablist">
-        {VIEWS.map((v) => (
+        {tabs.map((v) => (
           <button
             key={v}
             role="tab"
@@ -223,7 +229,9 @@ export function AppShell({
           </div>
         )}
 
-        {error ? (
+        {view === 'semillero' ? (
+          <SemilleroPanel items={items} sampleSeeds={sampleSeeds} />
+        ) : error ? (
           <p className="content__error">{error}</p>
         ) : loading ? (
           <p className="muted">{t('auth.loading')}</p>

@@ -46,7 +46,34 @@
     "allOwners": "Qualquer responsável",
     "mine": "Só o meu"
   },
-  "views": { "tree": "Árvore", "board": "Quadro", "list": "Lista", "agenda": "Agenda" },
+  "views": {
+    "tree": "Árvore",
+    "board": "Quadro",
+    "list": "Lista",
+    "agenda": "Agenda",
+    "semillero": "Novos contatos"
+  },
+  "channel": {
+    "voz": "Voz",
+    "qr": "QR",
+    "foto": "Foto",
+    "whatsapp": "WhatsApp",
+    "slack": "Slack",
+    "manual": "Manual"
+  },
+  "seedbed": {
+    "empty": "Nenhum contato para revisar.",
+    "noName": "Sem nome",
+    "suggested": "Sugestão",
+    "possibleDup": "Possível duplicado de: {{names}}",
+    "plantNew": "Plantar (novo)",
+    "plantInto": "Adicionar a uma oportunidade",
+    "add": "Adicionar",
+    "mergeWith": "Mesclar com",
+    "merge": "Mesclar",
+    "discard": "Descartar",
+    "sampleNote": "Modo amostra: as ações não gravam."
+  },
   "board": {
     "noNextStep": "Sem próximo passo definido",
     "cannotMove": "Sua função não pode mover esta oportunidade"

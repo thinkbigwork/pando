@@ -46,7 +46,34 @@
     "allOwners": "Any owner",
     "mine": "Only mine"
   },
-  "views": { "tree": "Tree", "board": "Board", "list": "List", "agenda": "Agenda" },
+  "views": {
+    "tree": "Tree",
+    "board": "Board",
+    "list": "List",
+    "agenda": "Agenda",
+    "semillero": "Inbox"
+  },
+  "channel": {
+    "voz": "Voice",
+    "qr": "QR",
+    "foto": "Photo",
+    "whatsapp": "WhatsApp",
+    "slack": "Slack",
+    "manual": "Manual"
+  },
+  "seedbed": {
+    "empty": "No contacts to review.",
+    "noName": "No name",
+    "suggested": "Suggestion",
+    "possibleDup": "Possible duplicate of: {{names}}",
+    "plantNew": "Plant (new)",
+    "plantInto": "Add to an opportunity",
+    "add": "Add",
+    "mergeWith": "Merge with",
+    "merge": "Merge",
+    "discard": "Discard",
+    "sampleNote": "Sample mode: actions don't write."
+  },
   "board": {
     "noNextStep": "No next step defined",
     "cannotMove": "Your role can't move this opportunity"
