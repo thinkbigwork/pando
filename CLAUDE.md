@@ -71,14 +71,15 @@ firestore.rules, storage.rules, firebase.json, .firebaserc
 
 - Se agregó la función "Mi red" (red de contactos), en el Sprint 5. La privacidad de las redes es un requisito central: los contactos de una persona nunca son legibles por otra.
 
-- **Sprint 0: implementado (cimientos), pendiente de verificación en la nube.** Monorepo
+- **Sprint 0: implementado (cimientos), CI en verde.** Monorepo
   `web`/`functions`/`shared`/`scripts` con TS estricto, ESLint y Prettier. Login con Google y
   gate de acceso (pendiente / sin acceso / listo). `/shared` con etapas, roles, matriz de
   permisos y tipos, con tests. i18n es/en/pt sin texto de UI en el código. Reglas de Firestore
   y Storage + primer test de reglas. `bootstrapAdmin` y trigger `setRoleClaim`. CI en GitHub
   Actions. Región elegida: `southamerica-east1`. Dominio de Workspace: `wizor.io`. CEO
   (bootstrap): `desk@wizor.io`. Repo: `github.com/thinkbigwork/pando`.
-  - **Verificado localmente:** build, typecheck, lint, formato y tests unitarios en verde.
+  - **Verificado:** build, typecheck, lint, formato y tests unitarios en local; CI de GitHub
+    Actions en verde, incluidos los tests de reglas de Firestore (emulador con JDK 21).
   - **Falta (pasos del usuario):** crear el proyecto `pando-dev` en Firebase y completar
     `web/.env.local`; instalar Java para correr el emulador y `npm run test:rules` en local
     (en CI corren solos); `git push` inicial al repo; probar el login real y ver la pantalla
