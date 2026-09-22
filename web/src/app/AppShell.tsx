@@ -9,6 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { can, STAGES, ACTIVE_STAGE_KEYS, type Role } from '@pando/shared';
 import { LanguageSwitcher } from '../components/LanguageSwitcher';
 import { OpportunityTree, type ColorBy } from '../tree/OpportunityTree';
+import { OpportunityCard } from '../opportunity/OpportunityCard';
 import type { ItemWithId } from '../tree/model';
 
 interface Props {
@@ -102,6 +103,7 @@ export function AppShell({
   }
 
   const activeCount = visible.filter((i) => i.stage !== 'perdido' && i.stage !== 'pausado').length;
+  const selectedItem = selectedId ? (items.find((i) => i.id === selectedId) ?? null) : null;
 
   return (
     <div className="shell">
@@ -221,6 +223,16 @@ export function AppShell({
       <footer className="shell__foot muted">
         {displayName} · {t(`role.${role}`)}
       </footer>
+
+      {selectedItem && (
+        <OpportunityCard
+          item={selectedItem}
+          role={role}
+          currentUid={currentUid}
+          allItems={items}
+          onClose={() => setSelectedId(null)}
+        />
+      )}
     </div>
   );
 }
