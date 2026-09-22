@@ -11,10 +11,14 @@ export interface ItemsState {
   error: string | null;
 }
 
-export function useItems(): ItemsState {
+export function useItems(enabled = true): ItemsState {
   const [state, setState] = useState<ItemsState>({ items: [], loading: true, error: null });
 
   useEffect(() => {
+    if (!enabled) {
+      setState({ items: [], loading: false, error: null });
+      return;
+    }
     return onSnapshot(
       collection(db, 'items'),
       (snap) => {
@@ -23,7 +27,7 @@ export function useItems(): ItemsState {
       },
       (e) => setState({ items: [], loading: false, error: e.message }),
     );
-  }, []);
+  }, [enabled]);
 
   return state;
 }

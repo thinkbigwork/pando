@@ -66,6 +66,14 @@
     "later": "Más adelante",
     "empty": "No hay fechas cargadas con estos filtros."
   },
+  "summary": {
+    "title": "Estado general del pipeline",
+    "total": "oportunidades activas",
+    "byStage": "Por etapa",
+    "opportunities": "Oportunidades",
+    "empty": "Todavía no hay nada para mostrar.",
+    "updated": "Actualizado: {{date}}"
+  },
   "tree": {
     "legendTitle": "Cada oportunidad madura según su etapa:",
     "colorBy": "Color por",

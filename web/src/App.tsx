@@ -7,7 +7,21 @@ import { useItems } from './data/useItems';
 import { LanguageSwitcher } from './components/LanguageSwitcher';
 import { AdminUsers } from './components/AdminUsers';
 import { AppShell } from './app/AppShell';
+import { SummaryView } from './views/SummaryView';
+import type { Role } from '@pando/shared';
 import type { ItemWithId } from './tree/model';
+
+/** Pantalla de inicio por rol (ver "Usabilidad" en docs/01-producto.md). */
+function homeFor(role: Role): { view: 'tree' | 'board' | 'list' | 'agenda'; mine: boolean } {
+  switch (role) {
+    case 'vendedor':
+      return { view: 'list', mine: true }; // "Mis oportunidades" por deadline
+    case 'colaborador':
+      return { view: 'agenda', mine: true }; // "Mis pasos"
+    default:
+      return { view: 'tree', mine: false }; // CEO/cofounder/chief/pm/advisor
+  }
+}
 
 const WORKSPACE_DOMAIN = 'wizor.io';
 
@@ -75,14 +89,20 @@ function AccessMessage({ titleKey, bodyKey }: { titleKey: string; bodyKey: strin
   );
 }
 
-/** App con sesión y rol: el árbol, con acceso al panel de admin. */
+/** App con sesión y rol. El visitante ve el resumen; el resto, el árbol y sus
+ * vistas con la pantalla de inicio de su rol. */
 function ReadyApp() {
   const { t } = useTranslation();
   const { firebaseUser, role, signOut } = useAuth();
-  const { items, loading, error } = useItems();
+  const { items, loading, error } = useItems(role != null && role !== 'visitante');
   const [showAdmin, setShowAdmin] = useState(false);
 
   if (!role) return <Loading />;
+
+  // El visitante no lee `items`: solo `public/summary`.
+  if (role === 'visitante') {
+    return <SummaryView onSignOut={() => void signOut()} />;
+  }
 
   if (showAdmin) {
     return (
@@ -96,6 +116,7 @@ function ReadyApp() {
     );
   }
 
+  const home = homeFor(role);
   return (
     <AppShell
       items={items}
@@ -104,6 +125,8 @@ function ReadyApp() {
       role={role}
       currentUid={firebaseUser?.uid ?? null}
       displayName={firebaseUser?.displayName ?? firebaseUser?.email ?? ''}
+      initialView={home.view}
+      initialMine={home.mine}
       onSignOut={() => void signOut()}
       onManageUsers={() => setShowAdmin(true)}
     />
@@ -120,14 +143,20 @@ function SampleApp() {
       setItems(Object.entries(data).map(([id, it]) => ({ id, ...it }) as unknown as ItemWithId));
     });
   }, []);
+  const param = new URLSearchParams(window.location.search).get('role');
+  const role: Role = (param as Role) || 'ceo';
+  if (role === 'visitante') return <SummaryView />;
+  const home = homeFor(role);
   return (
     <AppShell
       items={items}
       loading={items.length === 0}
       error={null}
-      role="ceo"
+      role={role}
       currentUid={null}
       displayName="Muestra"
+      initialView={home.view}
+      initialMine={home.mine}
     />
   );
 }
