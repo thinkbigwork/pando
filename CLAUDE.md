@@ -71,6 +71,21 @@ firestore.rules, storage.rules, firebase.json, .firebaserc
 
 - Se agregó la función "Mi red" (red de contactos), en el Sprint 5. La privacidad de las redes es un requisito central: los contactos de una persona nunca son legibles por otra.
 
+- **Sprint 2: parcial (sin claves), CI en verde.** PRs #9–#10. Semillero y captura, todo
+  lo que no necesita secretos:
+  - **Parseo local** de vCard/MECARD/QR + detección de duplicados + mapeo semilla→hoja
+    (`@pando/shared/seeds`, con tests).
+  - **Semillero** (pestaña de triage): lista de semillas pendientes, aviso de duplicados y
+    acciones plantar/sumar/descartar/fusionar (callables `plantSeed`/`discardSeed`/`mergeSeeds`).
+  - **Captura móvil** (`CaptureView`): voz, QR, foto y texto manual; **cola offline** en
+    IndexedDB con reintento; el advisor abre en esta pantalla.
+  - **processSeed** (trigger): extracción local de QR/vCard; la transcripción (Speech-to-Text)
+    y la extracción con IA (Claude API) de audio/foto/texto libre quedan como punto de enganche.
+  - **Falta (necesita tus claves)**: `ANTHROPIC_API_KEY` (extracción con IA) y Speech-to-Text
+    (transcripción). Con eso se completan la voz y la foto de tarjeta y el criterio de
+    aceptación del Sprint 2. Los Sprints 3+ (Slack, WhatsApp, Jira, Meet) también dependen de
+    cuentas y secretos externos.
+
 - **Sprint 1: completo (paridad con el prototipo), CI en verde.** Todo mergeado a `main` vía
   PRs #1–#7. Incluye:
   - **Identidad Wizor** (navy `#001C38`, verde menta `#87CA9C`, Montserrat, logo) aplicada a
