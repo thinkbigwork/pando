@@ -26,12 +26,19 @@ interface Props {
   currentUid: string | null;
   displayName: string;
   initialView?: ViewKey;
+  initialMine?: boolean;
   onSignOut?: () => void;
   onManageUsers?: () => void;
 }
 
 function uniqueSorted(values: (string | undefined)[]): string[] {
   return [...new Set(values.filter((v): v is string => !!v))].sort((a, b) => a.localeCompare(b));
+}
+
+/** "Mío" = soy responsable de la hoja o tengo un paso asignado en ella. */
+function isMine(it: ItemWithId, uid: string | null): boolean {
+  if (!uid) return false;
+  return (it.ownerUids || []).includes(uid) || (it.steps || []).some((s) => s.ownerUid === uid);
 }
 
 export function AppShell({
@@ -42,6 +49,7 @@ export function AppShell({
   currentUid,
   displayName,
   initialView = 'tree',
+  initialMine = false,
   onSignOut,
   onManageUsers,
 }: Props) {
@@ -54,7 +62,7 @@ export function AppShell({
   const [trunk, setTrunk] = useState('');
   const [sector, setSector] = useState('');
   const [owner, setOwner] = useState('');
-  const [mine, setMine] = useState(false);
+  const [mine, setMine] = useState(initialMine);
   const [colorBy, setColorBy] = useState<ColorBy>('stage');
   const [collapsed, setCollapsed] = useState<Set<string>>(new Set());
   const [selectedId, setSelectedId] = useState<string | null>(null);
@@ -78,7 +86,7 @@ export function AppShell({
       if (trunk && it.trunk !== trunk) return false;
       if (sector && it.sector !== sector) return false;
       if (owner && !(it.owners || []).includes(owner)) return false;
-      if (mine && !(it.ownerUids || []).includes(currentUid ?? '')) return false;
+      if (mine && !isMine(it, currentUid)) return false;
       if (ql) {
         const hay = [it.title, it.org, it.branch, it.description, it.nextStep, ...(it.owners || [])]
           .join(' ')

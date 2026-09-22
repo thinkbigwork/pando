@@ -66,6 +66,14 @@
     "later": "Later",
     "empty": "No dates match these filters."
   },
+  "summary": {
+    "title": "Pipeline at a glance",
+    "total": "active opportunities",
+    "byStage": "By stage",
+    "opportunities": "Opportunities",
+    "empty": "Nothing to show yet.",
+    "updated": "Updated: {{date}}"
+  },
   "tree": {
     "legendTitle": "Each opportunity ripens by its stage:",
     "colorBy": "Color by",
