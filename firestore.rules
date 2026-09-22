@@ -112,6 +112,12 @@ service cloud.firestore {
       allow write: if isAny(admins());
     }
 
+    // Invitaciones por email (admin de usuarios). Solo CEO y cofounder.
+    // Una function las reclama al primer login y crea users/{uid}.
+    match /invites/{email} {
+      allow read, create, update, delete: if isAny(admins());
+    }
+
     // Vista de visitantes: única lectura permitida para 'visitante'.
     match /public/summary {
       allow read: if signedIn() && role() != null && role() != 'pendiente';
