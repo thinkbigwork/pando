@@ -20,7 +20,21 @@
     "signedInAs": "Sesión iniciada como",
     "yourRole": "Tu rol",
     "emptyTitle": "Todavía no hay nada para mostrar",
-    "emptyBody": "Estamos construyendo Pando. Pronto vas a ver acá tu árbol de oportunidades."
+    "emptyBody": "Estamos construyendo Pando. Pronto vas a ver acá tu árbol de oportunidades.",
+    "manageUsers": "Gestionar usuarios",
+    "back": "Volver"
+  },
+  "admin": {
+    "title": "Usuarios y roles",
+    "invite": "Invitar a alguien",
+    "email": "Email",
+    "emailPlaceholder": "persona@wizor.io",
+    "role": "Rol",
+    "send": "Invitar",
+    "users": "Personas",
+    "noUsers": "Todavía no hay personas.",
+    "inviteSent": "Invitación creada para {{email}}.",
+    "error": "Algo salió mal"
   },
   "role": {
     "ceo": "CEO",

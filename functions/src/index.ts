@@ -9,3 +9,4 @@ initializeApp();
 
 export { bootstrapAdmin } from './bootstrapAdmin.js';
 export { setRoleClaim } from './setRoleClaim.js';
+export { ensureAccess, inviteUser, setUserRole } from './userAdmin.js';

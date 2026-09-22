@@ -1,8 +1,11 @@
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { signInWithPopup } from 'firebase/auth';
+import { ADMIN_ROLES } from '@pando/shared';
 import { auth, googleProvider } from './firebase';
 import { useAuth } from './auth/AuthContext';
 import { LanguageSwitcher } from './components/LanguageSwitcher';
+import { AdminUsers } from './components/AdminUsers';
 
 const WORKSPACE_DOMAIN = 'wizor.io';
 
@@ -92,6 +95,21 @@ function NoAccess() {
 function Home() {
   const { t } = useTranslation();
   const { firebaseUser, role } = useAuth();
+  const [showAdmin, setShowAdmin] = useState(false);
+  const isAdmin = role != null && ADMIN_ROLES.includes(role);
+
+  if (isAdmin && showAdmin) {
+    return (
+      <div className="brand-screen">
+        <div className="glass-card glass-card--wide">
+          <Brand />
+          <AdminUsers />
+          <button onClick={() => setShowAdmin(false)}>{t('home.back')}</button>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="brand-screen">
       <div className="glass-card">
@@ -105,6 +123,11 @@ function Home() {
         <hr className="divider" />
         <h2>{t('home.emptyTitle')}</h2>
         <p className="muted">{t('home.emptyBody')}</p>
+        {isAdmin && (
+          <button className="primary" onClick={() => setShowAdmin(true)}>
+            {t('home.manageUsers')}
+          </button>
+        )}
       </div>
     </div>
   );

@@ -20,7 +20,21 @@
     "signedInAs": "Signed in as",
     "yourRole": "Your role",
     "emptyTitle": "Nothing to show yet",
-    "emptyBody": "We're building Pando. Your opportunity tree will show up here soon."
+    "emptyBody": "We're building Pando. Your opportunity tree will show up here soon.",
+    "manageUsers": "Manage users",
+    "back": "Back"
+  },
+  "admin": {
+    "title": "Users and roles",
+    "invite": "Invite someone",
+    "email": "Email",
+    "emailPlaceholder": "person@wizor.io",
+    "role": "Role",
+    "send": "Invite",
+    "users": "People",
+    "noUsers": "No people yet.",
+    "inviteSent": "Invitation created for {{email}}.",
+    "error": "Something went wrong"
   },
   "role": {
     "ceo": "CEO",

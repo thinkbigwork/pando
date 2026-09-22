@@ -20,7 +20,21 @@
     "signedInAs": "Sessão iniciada como",
     "yourRole": "Sua função",
     "emptyTitle": "Ainda não há nada para mostrar",
-    "emptyBody": "Estamos construindo o Pando. Em breve você verá aqui sua árvore de oportunidades."
+    "emptyBody": "Estamos construindo o Pando. Em breve você verá aqui sua árvore de oportunidades.",
+    "manageUsers": "Gerenciar usuários",
+    "back": "Voltar"
+  },
+  "admin": {
+    "title": "Usuários e funções",
+    "invite": "Convidar alguém",
+    "email": "Email",
+    "emailPlaceholder": "pessoa@wizor.io",
+    "role": "Função",
+    "send": "Convidar",
+    "users": "Pessoas",
+    "noUsers": "Ainda não há pessoas.",
+    "inviteSent": "Convite criado para {{email}}.",
+    "error": "Algo deu errado"
   },
   "role": {
     "ceo": "CEO",
