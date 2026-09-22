@@ -14,10 +14,11 @@ import { BoardView } from '../views/BoardView';
 import { ListView } from '../views/ListView';
 import { AgendaView } from '../views/AgendaView';
 import { SemilleroPanel } from '../seeds/SemilleroPanel';
+import { CaptureView } from '../seeds/CaptureView';
 import type { SeedWithId } from '../data/useSeeds';
 import type { ItemWithId } from '../tree/model';
 
-type ViewKey = 'tree' | 'board' | 'list' | 'agenda' | 'semillero';
+type ViewKey = 'tree' | 'board' | 'list' | 'agenda' | 'semillero' | 'captura';
 const VIEWS: ViewKey[] = ['tree', 'board', 'list', 'agenda'];
 
 interface Props {
@@ -61,7 +62,12 @@ export function AppShell({
   const showMoney = can(role, 'viewAmounts');
   const isAdmin = can(role, 'manageUsers');
   const isTriage = can(role, 'triageSeeds');
-  const tabs: ViewKey[] = isTriage ? [...VIEWS, 'semillero'] : VIEWS;
+  const isCapture = can(role, 'captureSeeds');
+  const tabs: ViewKey[] = [
+    ...VIEWS,
+    ...(isTriage ? (['semillero'] as ViewKey[]) : []),
+    ...(isCapture ? (['captura'] as ViewKey[]) : []),
+  ];
 
   const [view, setView] = useState<ViewKey>(initialView);
   const [q, setQ] = useState('');
@@ -229,7 +235,9 @@ export function AppShell({
           </div>
         )}
 
-        {view === 'semillero' ? (
+        {view === 'captura' ? (
+          <CaptureView currentUid={currentUid} sample={!!sampleSeeds} />
+        ) : view === 'semillero' ? (
           <SemilleroPanel items={items} sampleSeeds={sampleSeeds} />
         ) : error ? (
           <p className="content__error">{error}</p>

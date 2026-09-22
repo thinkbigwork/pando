@@ -51,7 +51,31 @@
     "board": "Board",
     "list": "List",
     "agenda": "Agenda",
-    "semillero": "Inbox"
+    "semillero": "Inbox",
+    "captura": "New contact"
+  },
+  "capture": {
+    "title": "New contact",
+    "event": "Event (optional)",
+    "eventPlaceholder": "e.g. HSE Congress 2026",
+    "speak": "Speak",
+    "scanQr": "Scan QR",
+    "photo": "Card photo",
+    "write": "Write",
+    "recording": "Recording… speak and tap Done.",
+    "stop": "Done",
+    "manualPlaceholder": "Name, company, role, interest, next step…",
+    "save": "Save",
+    "saved": "Contact saved.",
+    "savedPhoto": "Photo saved. We'll process it shortly.",
+    "savedAudio": "Audio saved. We'll transcribe it shortly.",
+    "queued": "Offline: saved and will send when reconnected.",
+    "pending": "{{count}} capture(s) queued to send.",
+    "qrUnsupported": "This browser can't scan QR. Try the photo.",
+    "qrTimeout": "No QR detected.",
+    "cameraError": "Couldn't open the camera.",
+    "micError": "Couldn't open the microphone.",
+    "sampleNote": "Sample mode: capture doesn't write."
   },
   "channel": {
     "voz": "Voice",

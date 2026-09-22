@@ -12,3 +12,4 @@ export { setRoleClaim } from './setRoleClaim.js';
 export { ensureAccess, inviteUser, setUserRole } from './userAdmin.js';
 export { rebuildSummary, recordActivity } from './triggers.js';
 export { plantSeed, discardSeed, mergeSeeds } from './seedActions.js';
+export { processSeed } from './processSeed.js';

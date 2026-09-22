@@ -51,7 +51,31 @@
     "board": "Quadro",
     "list": "Lista",
     "agenda": "Agenda",
-    "semillero": "Novos contatos"
+    "semillero": "Novos contatos",
+    "captura": "Novo contato"
+  },
+  "capture": {
+    "title": "Novo contato",
+    "event": "Evento (opcional)",
+    "eventPlaceholder": "Ex.: Congresso HSE 2026",
+    "speak": "Falar",
+    "scanQr": "Escanear QR",
+    "photo": "Foto do cartão",
+    "write": "Escrever",
+    "recording": "Gravando… fale e toque em Pronto.",
+    "stop": "Pronto",
+    "manualPlaceholder": "Nome, empresa, cargo, interesse, próximo passo…",
+    "save": "Salvar",
+    "saved": "Contato salvo.",
+    "savedPhoto": "Foto salva. Vamos processá-la em breve.",
+    "savedAudio": "Áudio salvo. Vamos transcrevê-lo em breve.",
+    "queued": "Sem conexão: salvo e será enviado ao reconectar.",
+    "pending": "{{count}} captura(s) na fila para enviar.",
+    "qrUnsupported": "Este navegador não escaneia QR. Tente a foto.",
+    "qrTimeout": "Nenhum QR detectado.",
+    "cameraError": "Não foi possível abrir a câmera.",
+    "micError": "Não foi possível abrir o microfone.",
+    "sampleNote": "Modo amostra: a captura não grava."
   },
   "channel": {
     "voz": "Voz",
