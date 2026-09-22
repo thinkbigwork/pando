@@ -36,6 +36,32 @@
     "inviteSent": "Invitación creada para {{email}}.",
     "error": "Algo salió mal"
   },
+  "filters": {
+    "search": "Buscar",
+    "line": "Línea de negocio",
+    "allLines": "Todas las líneas",
+    "sector": "Sector",
+    "allSectors": "Todos los sectores",
+    "owner": "Responsable",
+    "allOwners": "Cualquier responsable",
+    "mine": "Solo lo mío"
+  },
+  "tree": {
+    "legendTitle": "Cada oportunidad madura según su etapa:",
+    "colorBy": "Color por",
+    "byStage": "Etapa",
+    "byUrgency": "Urgencia",
+    "leaf": "oportunidad",
+    "leaves": "oportunidades",
+    "tapToOpen": "tocá para abrir",
+    "aria": "Árbol de oportunidades",
+    "noDate": "sin fecha",
+    "overdueBy": "vencida hace {{days}} d",
+    "dueOn": "vence {{date}}",
+    "activeCount": "{{count}} oportunidades activas en {{lines}} líneas",
+    "emptyTitle": "Todavía no hay oportunidades",
+    "emptyBody": "Cuando se carguen las oportunidades, vas a ver acá el árbol de Wizor."
+  },
   "role": {
     "ceo": "CEO",
     "cofounder": "Cofundador/a",

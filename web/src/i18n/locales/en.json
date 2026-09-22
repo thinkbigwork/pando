@@ -36,6 +36,32 @@
     "inviteSent": "Invitation created for {{email}}.",
     "error": "Something went wrong"
   },
+  "filters": {
+    "search": "Search",
+    "line": "Business line",
+    "allLines": "All lines",
+    "sector": "Sector",
+    "allSectors": "All sectors",
+    "owner": "Owner",
+    "allOwners": "Any owner",
+    "mine": "Only mine"
+  },
+  "tree": {
+    "legendTitle": "Each opportunity ripens by its stage:",
+    "colorBy": "Color by",
+    "byStage": "Stage",
+    "byUrgency": "Urgency",
+    "leaf": "opportunity",
+    "leaves": "opportunities",
+    "tapToOpen": "tap to open",
+    "aria": "Opportunity tree",
+    "noDate": "no date",
+    "overdueBy": "overdue by {{days}} d",
+    "dueOn": "due {{date}}",
+    "activeCount": "{{count}} active opportunities across {{lines}} lines",
+    "emptyTitle": "No opportunities yet",
+    "emptyBody": "Once opportunities are loaded, Wizor's tree will show up here."
+  },
   "role": {
     "ceo": "CEO",
     "cofounder": "Cofounder",

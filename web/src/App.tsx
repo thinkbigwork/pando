@@ -1,11 +1,13 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { signInWithPopup } from 'firebase/auth';
-import { ADMIN_ROLES } from '@pando/shared';
 import { auth, googleProvider } from './firebase';
 import { useAuth } from './auth/AuthContext';
+import { useItems } from './data/useItems';
 import { LanguageSwitcher } from './components/LanguageSwitcher';
 import { AdminUsers } from './components/AdminUsers';
+import { AppShell } from './app/AppShell';
+import type { ItemWithId } from './tree/model';
 
 const WORKSPACE_DOMAIN = 'wizor.io';
 
@@ -58,47 +60,31 @@ function Loading() {
   );
 }
 
-function AccessPending() {
+function AccessMessage({ titleKey, bodyKey }: { titleKey: string; bodyKey: string }) {
   const { t } = useTranslation();
   const { firebaseUser } = useAuth();
   return (
     <div className="brand-screen">
       <div className="glass-card">
         <Brand />
-        <h2>{t('access.pendingTitle')}</h2>
-        <p className="muted">{t('access.pendingBody')}</p>
+        <h2>{t(titleKey)}</h2>
+        <p className="muted">{t(bodyKey)}</p>
         {firebaseUser?.email && <p className="muted">{firebaseUser.email}</p>}
       </div>
     </div>
   );
 }
 
-function NoAccess() {
+/** App con sesión y rol: el árbol, con acceso al panel de admin. */
+function ReadyApp() {
   const { t } = useTranslation();
-  const { firebaseUser } = useAuth();
-  return (
-    <div className="brand-screen">
-      <div className="glass-card">
-        <Brand />
-        <h2>{t('access.noAccessTitle')}</h2>
-        <p className="muted">{t('access.noAccessBody')}</p>
-        {firebaseUser?.email && <p className="muted">{firebaseUser.email}</p>}
-      </div>
-    </div>
-  );
-}
-
-/**
- * Pantalla de inicio vacía del Sprint 0: solo confirma sesión y rol.
- * Las pantallas de inicio por rol y el árbol llegan en el Sprint 1.
- */
-function Home() {
-  const { t } = useTranslation();
-  const { firebaseUser, role } = useAuth();
+  const { firebaseUser, role, signOut } = useAuth();
+  const { items, loading, error } = useItems();
   const [showAdmin, setShowAdmin] = useState(false);
-  const isAdmin = role != null && ADMIN_ROLES.includes(role);
 
-  if (isAdmin && showAdmin) {
+  if (!role) return <Loading />;
+
+  if (showAdmin) {
     return (
       <div className="brand-screen">
         <div className="glass-card glass-card--wide">
@@ -111,39 +97,61 @@ function Home() {
   }
 
   return (
-    <div className="brand-screen">
-      <div className="glass-card">
-        <Brand />
-        <p className="muted">{t('home.signedInAs')}</p>
-        <p>
-          <strong>{firebaseUser?.displayName ?? firebaseUser?.email}</strong>
-        </p>
-        <p className="muted">{t('home.yourRole')}</p>
-        {role && <p className="role-badge">{t(`role.${role}`)}</p>}
-        <hr className="divider" />
-        <h2>{t('home.emptyTitle')}</h2>
-        <p className="muted">{t('home.emptyBody')}</p>
-        {isAdmin && (
-          <button className="primary" onClick={() => setShowAdmin(true)}>
-            {t('home.manageUsers')}
-          </button>
-        )}
-      </div>
-    </div>
+    <AppShell
+      items={items}
+      loading={loading}
+      error={error}
+      role={role}
+      currentUid={firebaseUser?.uid ?? null}
+      displayName={firebaseUser?.displayName ?? firebaseUser?.email ?? ''}
+      onSignOut={() => void signOut()}
+      onManageUsers={() => setShowAdmin(true)}
+    />
+  );
+}
+
+/** Modo muestra (solo en desarrollo, con ?sample): renderiza el árbol con los
+ * datos semilla, sin autenticación, para revisar la vista. */
+function SampleApp() {
+  const [items, setItems] = useState<ItemWithId[]>([]);
+  useEffect(() => {
+    void import('../../seed/items.json').then((mod) => {
+      const data = mod.default as unknown as Record<string, Record<string, unknown>>;
+      setItems(Object.entries(data).map(([id, it]) => ({ id, ...it }) as unknown as ItemWithId));
+    });
+  }, []);
+  return (
+    <AppShell
+      items={items}
+      loading={items.length === 0}
+      error={null}
+      role="ceo"
+      currentUid={null}
+      displayName="Muestra"
+    />
   );
 }
 
 export default function App() {
   const { status } = useAuth();
 
+  if (import.meta.env.DEV && new URLSearchParams(window.location.search).has('sample')) {
+    return <SampleApp />;
+  }
+
+  if (status === 'ready') return <ReadyApp />;
+
   return (
     <>
       <TopBar />
       {status === 'loading' && <Loading />}
       {status === 'signed-out' && <SignIn />}
-      {status === 'pending' && <AccessPending />}
-      {status === 'no-access' && <NoAccess />}
-      {status === 'ready' && <Home />}
+      {status === 'pending' && (
+        <AccessMessage titleKey="access.pendingTitle" bodyKey="access.pendingBody" />
+      )}
+      {status === 'no-access' && (
+        <AccessMessage titleKey="access.noAccessTitle" bodyKey="access.noAccessBody" />
+      )}
     </>
   );
 }

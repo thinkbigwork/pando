@@ -39,7 +39,14 @@
   --accent: var(--wz-navy);
   --accent-contrast: #ffffff;
   --focus: var(--wz-mint-600);
-  --danger: #c0453f;
+  --danger: #b83a26;
+
+  /* Paleta "bosque" del árbol (corteza y urgencias) — tema claro. */
+  --bark: #7a5a40;
+  --bark2: #a0826a;
+  --warn: #c98a12;
+  --ok: #2e8b57;
+  --line: #cbd4cc;
 
   color-scheme: light dark;
 }
@@ -56,5 +63,11 @@
     --accent: var(--wz-mint);
     --accent-contrast: var(--wz-navy);
     --focus: var(--wz-mint);
+    --danger: #e8654f;
+    --bark: #9c7c60;
+    --bark2: #6e5845;
+    --warn: #e5b04a;
+    --ok: #5cc08a;
+    --line: #2f3d35;
   }
 }
