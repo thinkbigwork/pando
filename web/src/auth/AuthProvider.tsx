@@ -17,6 +17,7 @@ import { doc, onSnapshot } from 'firebase/firestore';
 import type { User } from '@pando/shared';
 import { isRole } from '@pando/shared';
 import { auth, db } from '../firebase';
+import { ensureAccess } from '../api/users';
 import { AuthContext, type AuthState, type AuthStatus } from './AuthContext';
 
 const WORKSPACE_DOMAIN = 'wizor.io';
@@ -44,6 +45,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (!firebaseUser) return;
+    // Crea o reclama el documento del usuario en el servidor (persiste a los
+    // pendientes para que un admin pueda asignarles rol). Idempotente; si las
+    // functions no están disponibles, se cae al chequeo por dominio de abajo.
+    void ensureAccess().catch(() => {
+      /* sin functions (p.ej. dev sin emulador): se resuelve por el snapshot */
+    });
     const ref = doc(db, 'users', firebaseUser.uid);
     return onSnapshot(
       ref,
