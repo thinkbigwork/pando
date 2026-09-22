@@ -71,6 +71,28 @@ firestore.rules, storage.rules, firebase.json, .firebaserc
 
 - Se agregó la función "Mi red" (red de contactos), en el Sprint 5. La privacidad de las redes es un requisito central: los contactos de una persona nunca son legibles por otra.
 
+- **Sprint 1: completo (paridad con el prototipo), CI en verde.** Todo mergeado a `main` vía
+  PRs #1–#7. Incluye:
+  - **Identidad Wizor** (navy `#001C38`, verde menta `#87CA9C`, Montserrat, logo) aplicada a
+    toda la app, con la escala de verdes reservada a las etapas.
+  - **Migración del seed** (`scripts/seed.ts`): mapeo owners→ownerUids, subcolecciones
+    `comments`/`meetings`, `config/taxonomy`, idempotente, con `--dry-run` y reporte de owners
+    sin mapear (13 pendientes de revisar alias con el equipo; ej. `Reinaldo`/`Reinhaldo`).
+  - **Permisos reales**: reglas de Firestore + 27 tests por fila de la matriz; admin de
+    usuarios (callables `inviteUser`/`setUserRole`/`ensureAccess`, colección `invites`).
+  - **Vistas**: Árbol (D3, plegado, color por etapa/urgencia, búsqueda que despliega el
+    camino), Tablero (drag para avanzar), Lista (ordenable + CSV), Agenda, y la **ficha**
+    completa con edición por permiso.
+  - **Homes por rol** (vendedor→Lista mía, colaborador→Agenda mía, resto→Árbol) y **vista
+    Visitante** que lee solo `public/summary` (triggers `rebuildSummary` y `recordActivity`).
+  - **Verificación**: 34 tests unitarios + 27 de reglas; typecheck/lint/formato/build/CI en
+    verde. Vistas y ficha probadas en el navegador con el modo muestra dev (`?sample=1`,
+    `?role=`).
+  - **Falta (pasos del usuario)**: crear `pando-dev`, completar `web/.env.local` y
+    `functions/.env`, correr `bootstrapAdmin` y la migración real (`seed:dev`), y las pruebas
+    de aceptación con usuarios reales (invitar 3 personas, usabilidad). El despliegue a
+    `pando-prod` sigue requiriendo tu confirmación explícita.
+
 - **Sprint 0: implementado (cimientos), CI en verde.** Monorepo
   `web`/`functions`/`shared`/`scripts` con TS estricto, ESLint y Prettier. Login con Google y
   gate de acceso (pendiente / sin acceso / listo). `/shared` con etapas, roles, matriz de
