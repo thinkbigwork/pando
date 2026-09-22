@@ -8,6 +8,7 @@ import { LanguageSwitcher } from './components/LanguageSwitcher';
 import { AdminUsers } from './components/AdminUsers';
 import { AppShell } from './app/AppShell';
 import { SummaryView } from './views/SummaryView';
+import { SAMPLE_SEEDS } from './seeds/sampleSeeds';
 import type { Role } from '@pando/shared';
 import type { ItemWithId } from './tree/model';
 
@@ -157,6 +158,7 @@ function SampleApp() {
       displayName="Muestra"
       initialView={home.view}
       initialMine={home.mine}
+      sampleSeeds={SAMPLE_SEEDS}
     />
   );
 }
